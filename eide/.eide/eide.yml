@@ -1,0 +1,218 @@
+version: "4.1"
+name: stm32h723
+type: ARM
+deviceName: STM32H723ZGTx
+packDir: .pack/Keil/STM32H7xx_DFP.4.1.0
+srcDirs: []
+virtualFolder:
+  name: <virtual_root>
+  files: []
+  folders:
+    - name: application
+      files:
+        - path: ../application/src/main.c
+        - path: ../application/src/stm32h7xx_hal_msp.c
+        - path: ../application/src/stm32h7xx_it.c
+        - path: ../application/src/stm32h7xx_hal_timebase_tim.c
+      folders: []
+    - name: bsp
+      files:
+        - path: ../BSP/startup_stm32h723xx.s
+        - path: ../bsp/system_stm32h7xx.c
+        - path: ../bsp/uart/uart.c
+      folders: []
+    - name: hal
+      files:
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
+        - path: ../hal_driver/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c
+      folders: []
+    - name: FreeRTOS
+      files: []
+      folders:
+        - name: Kernel
+          files:
+            - path: ../FreeRTOS/kernel/src/croutine.c
+            - path: ../FreeRTOS/kernel/src/event_groups.c
+            - path: ../FreeRTOS/kernel/src/list.c
+            - path: ../FreeRTOS/kernel/src/queue.c
+            - path: ../FreeRTOS/kernel/src/stream_buffer.c
+            - path: ../FreeRTOS/kernel/src/tasks.c
+            - path: ../FreeRTOS/kernel/src/timers.c
+          folders: []
+        - name: Port
+          files:
+            - path: ../FreeRTOS/kernel/port/MemMang/heap_4.c
+            - path: ../FreeRTOS/kernel/port/RVDS/ARM_CM7/r0p1/port.c
+          folders: []
+        - name: Inc
+          files:
+            - path: ../FreeRTOS/kernel/FreeRTOSConfig.h
+          folders: []
+dependenceList: []
+outDir: build
+miscInfo:
+  uid: 4242ef5054605a954756f9d8c555a8f0
+targets:
+  debug:
+    cppPreprocessAttrs:
+      defineList:
+        - USE_PWR_LDO_SUPPLY
+        - USE_HAL_DRIVER
+        - STM32H723xx
+      incList:
+        - .
+        - ../application/inc
+        - ../bsp
+        - ../hal_driver/STM32H7xx_HAL_Driver/Inc
+        - ../hal_driver/STM32H7xx_HAL_Driver/Inc/Legacy
+        - ../hal_driver/CMSIS/Device/ST/STM32H7xx/Include
+        - ../hal_driver/CMSIS/Core/Include
+        - ../FreeRTOS/kernel/include
+        - ../FreeRTOS/kernel/port/RVDS/ARM_CM7/r0p1
+        - ../FreeRTOS/kernel
+        - .cmsis/include
+        - ../mdk/RTE/_debug
+        - ../bsp/uart
+      libList: []
+    excludeList: []
+    settings:
+      debugger: cortex-debug
+    toolchain: AC6
+    toolchainConfigMap:
+      AC6:
+        archExtensions: ""
+        cpuType: Cortex-M7
+        floatingPointHardware: double
+        options:
+          version: 3
+          afterBuildTasks: []
+          asm-compiler:
+            $use: asm-auto
+          beforeBuildTasks: []
+          c/cpp-compiler:
+            language-c: c99
+            language-cpp: c++11
+            one-elf-section-per-function: true
+            optimization: level-3
+            short-enums#wchar: true
+            warnings: ac5-like-warnings
+          global:
+            output-debug-info: enable
+          linker:
+            $outputTaskExcludes:
+              - .bin
+            misc-controls: --diag_suppress=L6329
+            output-format: elf
+        scatterFilePath: ""
+        storageLayout:
+          RAM:
+            - id: 1
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 2
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 3
+              isChecked: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              noInit: false
+              tag: RAM
+            - id: 1
+              isChecked: true
+              mem:
+                size: "0x20000"
+                startAddr: "0x20000000"
+              noInit: false
+              tag: IRAM
+            - id: 2
+              isChecked: true
+              mem:
+                size: "0x50000"
+                startAddr: "0x24000000"
+              noInit: false
+              tag: IRAM
+          ROM:
+            - id: 1
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 3
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: ROM
+            - id: 1
+              isChecked: true
+              isStartup: true
+              mem:
+                size: "0x100000"
+                startAddr: "0x8000000"
+              tag: IROM
+            - id: 2
+              isChecked: false
+              isStartup: false
+              mem:
+                size: "0x0"
+                startAddr: "0x0"
+              tag: IROM
+        useCustomScatterFile: false
+    uploadConfigMap:
+      JLink:
+        baseAddr: ""
+        bin: ""
+        cpuInfo:
+          cpuName: "null"
+          vendor: "null"
+        otherCmds: ""
+        proType: 1
+        speed: 8000
+      OpenOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        interface: cmsis-dap
+        target: stm32h7x
+      pyOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        config: .eide/debug.pyocd.yaml
+        otherCmds: ""
+        speed: 4M
+        targetName: stm32h723zgt6
+    uploader: OpenOCD
