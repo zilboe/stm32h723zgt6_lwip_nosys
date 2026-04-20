@@ -99,7 +99,10 @@
 #define CHECKSUM_CHECK_ICMP6 0
 /*-----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-
+//// select poll or irq
+#ifndef ETH_START_POLL
+#define	ETH_START_POLL	1
+#endif
 /* USER CODE END 1 */
 
 #ifdef __cplusplus

@@ -527,7 +527,10 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef* ethHandle)
     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ETH_MspInit 1 */
-
+	#if !ETH_START_POLL
+		HAL_NVIC_SetPriority(ETH_IRQn, 3, 0);
+    HAL_NVIC_EnableIRQ(ETH_IRQn);
+	#endif
   /* USER CODE END ETH_MspInit 1 */
   }
 }
@@ -562,7 +565,9 @@ void HAL_ETH_MspDeInit(ETH_HandleTypeDef* ethHandle)
     HAL_GPIO_DeInit(GPIOG, GPIO_PIN_11|GPIO_PIN_13|GPIO_PIN_14);
 
   /* USER CODE BEGIN ETH_MspDeInit 1 */
-
+	#if !ETH_START_POLL
+		HAL_NVIC_DisableIRQ(ETH_IRQn);
+	#endif
   /* USER CODE END ETH_MspDeInit 1 */
   }
 }
@@ -693,12 +698,30 @@ void ethernet_link_check_state(struct netif *netif)
       MACConf.DuplexMode = duplex;
       MACConf.Speed = speed;
       HAL_ETH_SetMACConfig(&heth, &MACConf);
+		#if ETH_START_POLL
       HAL_ETH_Start(&heth);
+		#else
+			HAL_ETH_Start_IT(&heth);
+		#endif
       netif_set_up(netif);
       netif_set_link_up(netif);
     }
   }
 
+}
+
+/**
+  * @brief This function handles Ethernet global interrupt.
+  */
+void ETH_IRQHandler(void)
+{
+  /* USER CODE BEGIN ETH_IRQn 0 */
+
+  /* USER CODE END ETH_IRQn 0 */
+  HAL_ETH_IRQHandler(&heth);
+  /* USER CODE BEGIN ETH_IRQn 1 */
+
+  /* USER CODE END ETH_IRQn 1 */
 }
 
 void HAL_ETH_RxAllocateCallback(uint8_t **buff)

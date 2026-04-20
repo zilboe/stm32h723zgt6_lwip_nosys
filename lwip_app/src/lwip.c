@@ -128,6 +128,13 @@ static void Ethernet_Link_Periodic_Handle(struct netif *netif)
 /* USER CODE END 4_4 */
 }
 
+void HAL_ETH_RxCpltCallback(ETH_HandleTypeDef *heth)
+{
+    // 处理接收到的数据
+    // ...
+    ethernetif_input(&gnetif);
+}
+
 /**
  * ----------------------------------------------------------------------
  * Function given to help user to continue LwIP Initialization
@@ -143,8 +150,9 @@ void MX_LWIP_Process(void)
 {
 /* USER CODE BEGIN 4_1 */
 /* USER CODE END 4_1 */
+#if ETH_START_POLL
   ethernetif_input(&gnetif);
-
+#endif
 /* USER CODE BEGIN 4_2 */
 /* USER CODE END 4_2 */
   /* Handle timeouts */
